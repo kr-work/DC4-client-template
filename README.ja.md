@@ -40,7 +40,7 @@ game_mode には **standard** または **mixed_doubles** を入れてくださ�
     - modified_fgz_rule
     を選択してください
 なお、ミックスダブルスの際には、**positioned_stones_pattern**に0~5の数値を入れてください。こちらは、各エンドにおける置き石のストーン配置を決定するものです。
-![](./figure/positioned_stone.png)
+![](https://github.com/kr-work/DC4-client-template/blob/main/figure/positioned_stone.png)
 
 (現在、利用可能なシミュレータは "fcv1" のみですので、他のシミュレータでは対戦できません。)
 

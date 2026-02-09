@@ -43,6 +43,8 @@ In this case, please select one of the following for applied_rule:
 - If mixed_doubles is selected: 
 A match compatible with Mixed Doubles will start. In this case, please select following for applied_rule.
     - modified_fgz_rule
+Please note that for mixed doubles, enter a number between 0 and 5 in the **positioned_stones_pattern** field. This determines the placement of the stones at each end.
+![](https://github.com/kr-work/DC4-client-template/blob/main/figure/positioned_stone.png)
 
 (Currently, "fcv1" is the only simulator available, so matches cannot be played on other simulators.)
 
