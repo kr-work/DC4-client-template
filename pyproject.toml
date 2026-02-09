@@ -1,0 +1,13 @@
+[project]
+name = "dc4_client"
+version = "1.0.0"
+description = "Digital Curling4 Client Template"
+readme = "README.md"
+requires-python = ">=3.19"
+dependencies = [
+    "dc4client"
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
