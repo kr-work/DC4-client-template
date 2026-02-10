@@ -11,11 +11,6 @@ This is a new client for digital curling.
 pip install -r requirements.txt
 ```
 
-We plan to release this repository on pypi eventually, but currently use
-```bash
-pip install .
-```
-
 ## How to use
 ### Prepare user data
 To play a match, each user must be registered on the server.
@@ -59,9 +54,7 @@ The above command should be entered when you want to start a new match.
 The match_id will now be stored in match_id.json.
 
 ### Connect client to server
-I prepared folders named client0 and client1 so that we could actually play against each other.(When distributing, delete the client0 and client1 folders and refer to sample_client.py)
-
-You can configure the players who will play in that match in “client0.team0_config.json” and “client1.team1_config.json”. In addition, when playing with the same settings as in the tournament, you can set
+You can configure the players who will play in that match in “team_config.json” and “md_team_config.json”. In addition, when playing with the same settings as in the tournament, you can set
 ```md
 "use_default_config": true
 ``` 
@@ -130,7 +123,7 @@ The protocol for miced doubles is as follows ![here](./figure/md_protocol.png).
 client = DCClient(match_id=match_id, username=username, password=password, match_team_name=MatchNameModel.team0)
 ```
 match_id is received from the server when a match is created.
-username and password are required to identify the client. In production each participant should set their own username and password. For now you can use the preconfigured values in the project [.env](./.env).
+username and password are required to identify the client. In production each participant should set their own username and password.
 
 First, send your team information to the server.
 See [md_team_config.json](./md_team_config.json) for an example. (Only the team data differs from four-player curling.)
@@ -150,24 +143,23 @@ At this time, you will receive from the server which team plays first/second in 
 At match start, the server sends a state where **next_shot_team** is None. At the beginning of each end, you must choose the positioned stones.
 
 Use the following to choose the positioned stones pattern (and optional power play):
-```Python
-class PositionedStonesModel(str, enum.Enum):
-    center_guard = "center_guard"
-    center_house = "center_house"
-    pp_left = "pp_left"
-    pp_right = "pp_right"
-```
+    ```Python
+    class PositionedStonesModel(str, enum.Enum):
+        center_guard = "center_guard"
+        center_house = "center_house"
+        pp_left = "pp_left"
+        pp_right = "pp_right"
+    ```
+    Power play can be used only once per team per match. After the second attempt, **center_guard** is automatically selected.
 
-Power play can be used only once per team per match. After the second attempt, **center_guard** is automatically selected.
+    - PositionedStonesModel.center_guard -> Positioned stones at guard, take first throw
+    - PositionedStonesModel.center_house -> Positioned stones in house, take second throw
+    - PositionedStonesModel.pp_left -> Power play: positioned stones on the left, take second throw
+    - PositionedStonesModel.pp_right -> Power play: positioned stones on the right, take second throw
 
-- PositionedStonesModel.center_guard -> Positioned stones at guard, take first throw
-- PositionedStonesModel.center_house -> Positioned stones in house, take second throw
-- PositionedStonesModel.pp_left -> Power play: positioned stones on the left, take second throw
-- PositionedStonesModel.pp_right -> Power play: positioned stones on the right, take second throw
+    After that, receive state data from the server. If the next shot team matches your team name (team0 or team1), send a shot to the server using **send_shot_info**.
 
-After that, receive state data from the server. If the next shot team matches your team name (team0 or team1), send a shot to the server using **send_shot_info**.
-
-You can also send shot data in the same format as Digital Curling 3rd generation using **send_shot_info_dc3**.
+    You can also send shot data in the same format as Digital Curling 3rd generation using **send_shot_info_dc3**.
 
 5. End of the match (same as four-player curling)
 When **winner_team** in the state data becomes team0 or team1, the match is finished.

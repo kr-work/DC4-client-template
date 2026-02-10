@@ -1,4 +1,5 @@
 # デジタルカーリング用新クライアント
+
 これはデジタルカーリング用の新しいクライアントです。
 
 ## 言語
@@ -9,13 +10,10 @@
 ```bash
 pip install -r requirements.txt
 ```
-このリポジトリは将来的に pypi で公開する予定ですが、現在は以下を使用してください。
-
-```Bash
-pip install .
-```
 
 ## 使い方
+本リポジトリには、テンプレートとして4人制のカーリングとミックスダブルスの2つを用意してあります。./templatesの中にそれぞれに対応したプログラムがありあす。
+
 ### ユーザーデータの準備
 試合を行うためには、各ユーザーがサーバー側に登録されている必要があります。 例:
 
@@ -23,7 +21,7 @@ pip install .
 MATCH_USER_NAME="user"
 PASS_WORD="password"
 ```
-デフォルトで.env.sampleというファイルが入っておりますが、そちらを.envファイルに変えた上、サーバに登録した自分のユーザネーム・パスワードをこちらに設定してください。
+デフォルトで.env.sampleというファイルが入っておりますが、そちらを.envファイルに変えた上、サーバに登録したユーザネーム・パスワードをこちらに設定してください。
 
 ## 試合の作成
 ### 試合設定ファイル
@@ -56,9 +54,7 @@ python match_maker.py
 これで match_id.json に match_id が保存されます。
 
 ### クライアントをサーバーに接続
-実際に相互に対戦できるように、client0 と client1 というフォルダを用意しました。（配布する際は、client0 と client1 フォルダを削除した上で、別リポジトリにテンプレートとして作成するsample_client.py を参照してください。）
-
-その試合でプレイするプレイヤーの設定は、"client0.team0_config.json" および "client1.team1_config.json" で行えます。 また、大会と同じ設定でプレイする場合は、以下のように設定してください。
+試合でプレイするプレイヤーの設定は、"team_config.json" および "md_team_config.json" で行えます。 また、大会と同じ設定でプレイする場合は、以下のように設定してください。
 
 ```Markdown
 "use_default_config": true
@@ -92,8 +88,7 @@ client = DCClient(match_id=match_id, username=username, password=password, match
 ```
 match_id は試合作成時にサーバから受け取ります。
 usernameとpasswordはクライアントを特定するために、設定する必要があります。
-本番環境では、参加者にusernameとpasswordを設定して参加して頂く必要がありますが、今は[.env](./.env)にて予め設定済みのものがあるので、そちらをご利用ください。
-
+本番環境では、参加者にusernameとpasswordを設定して参加して頂く必要があります。
 
 まず初めにチーム情報をサーバへ送信します。
 チーム情報の例として[team_config.json](./team_config.json)をご確認ください。
@@ -130,11 +125,9 @@ client = DCClient(match_id=match_id, username=username, password=password, match
 ```
 match_id は試合作成時にサーバから受け取ります。
 usernameとpasswordはクライアントを特定するために、設定する必要があります。
-本番環境では、参加者にusernameとpasswordを設定して参加して頂く必要がありますが、今は[.env](./.env)にて予め設定済みのものがあるので、そちらをご利用ください。
-
 
 まず初めにチーム情報をサーバへ送信します。
-チーム情報の例として[md_team_config.json](./md_team_config.json)をご確認ください。ここのチームデータだけ4人制カーリングと異なります。
+チーム情報の例として**[md_team_config.json](./md_team_config.json)**をご確認ください。ここのチームデータだけ4人制カーリングと異なります。
 
 2. 通信先のホスト名・ポート番号の設定 (4人制カーリングと同様)
 **DCClient**内にある**set_server_address**関数を利用して、サーバのホスト名・ポート番号を設定してください。
