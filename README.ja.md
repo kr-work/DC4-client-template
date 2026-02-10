@@ -83,65 +83,65 @@ python client.py
 4人制のカーリングの場合のプロトコルは![こちら](https://github.com/kr-work/DC4-client-template/blob/main/figure/protocol.png)
 
 1. クライアントをインスタンス化
-```Python
-client = DCClient(match_id=match_id, username=username, password=password, match_team_name=MatchNameModel.team0)
-```
-match_id は試合作成時にサーバから受け取ります。
-usernameとpasswordはクライアントを特定するために、設定する必要があります。
-本番環境では、参加者にusernameとpasswordを設定して参加して頂く必要があります。
+    ```Python
+    client = DCClient(match_id=match_id, username=username, password=password, match_team_name=MatchNameModel.team0)
+    ```
+    match_id は試合作成時にサーバから受け取ります。
+    usernameとpasswordはクライアントを特定するために、設定する必要があります。
+    本番環境では、参加者にusernameとpasswordを設定して参加して頂く必要があります。
 
-まず初めにチーム情報をサーバへ送信します。
-チーム情報の例として[team_config.json](./team_config.json)をご確認ください。
+    まず初めにチーム情報をサーバへ送信します。
+    チーム情報の例として[team_config.json](./team_config.json)をご確認ください。
 
 2. 通信先のホスト名・ポート番号の設定
-**DCClient**内にある**set_server_address**関数を利用して、サーバのホスト名・ポート番号を設定してください。
-```Python
-client.set_server_address(host="localhost", port=5000)
-```
+    **DCClient**内にある**set_server_address**関数を利用して、サーバのホスト名・ポート番号を設定してください。
+    ```Python
+    client.set_server_address(host="localhost", port=5000)
+    ```
 
 3. チーム情報の送信
-**send_team_info**関数を用いてチーム情報を、サーバへ送信します。
-この際に、最初のエンドにおける先攻後攻をサーバから受け取ります。
-(先攻 -> team0, 後攻 -> team1)
+    **send_team_info**関数を用いてチーム情報を、サーバへ送信します。
+    この際に、最初のエンドにおける先攻後攻をサーバから受け取ります。
+    (先攻 -> team0, 後攻 -> team1)
 
 4. 試合開始
-サーバから盤面データを受け取り、次のショットチームがあなたのチーム名(team0 または team1)と一致した場合、**send_shot_info**関数を利用して投球情報をサーバへ送信してください。
+    サーバから盤面データを受け取り、次のショットチームがあなたのチーム名(team0 または team1)と一致した場合、**send_shot_info**関数を利用して投球情報をサーバへ送信してください。
 
-なお、第三世代のデジタルカーリングの投球情報のままでも送信できるよう**send_shot_info_dc3**関数を用意してあります。
-引数は
-- vx
-- vy
-- rotation("cw" または"ccw"を入れてください)
+    なお、第三世代のデジタルカーリングの投球情報のままでも送信できるよう**send_shot_info_dc3**関数を用意してあります。
+    引数は
+    - vx
+    - vy
+    - rotation("cw" または"ccw"を入れてください)
 
 5. 試合終了
-盤面データ内にある**winner_team**にteam0 または team1 が入ったら試合終了です。
+    盤面データ内にある**winner_team**にteam0 または team1 が入ったら試合終了です。
 
 ### ミックスダブルス
 ミックスダブルスの場合のプロトコルは![こちら](https://github.com/kr-work/DC4-client-template/blob/main/figure/md_protocol.png)
 
 1. クライアントをインスタンス化
-```Python
-client = DCClient(match_id=match_id, username=username, password=password, match_team_name=MatchNameModel.team0)
-```
-match_id は試合作成時にサーバから受け取ります。
-usernameとpasswordはクライアントを特定するために、設定する必要があります。
+    ```Python
+    client = DCClient(match_id=match_id, username=username, password=password, match_team_name=MatchNameModel.team0)
+    ```
+    match_id は試合作成時にサーバから受け取ります。
+    usernameとpasswordはクライアントを特定するために、設定する必要があります。
 
-まず初めにチーム情報をサーバへ送信します。
-チーム情報の例として**[md_team_config.json](./md_team_config.json)**をご確認ください。ここのチームデータだけ4人制カーリングと異なります。
+    まず初めにチーム情報をサーバへ送信します。
+    チーム情報の例として**[md_team_config.json](./md_team_config.json)**をご確認ください。ここのチームデータだけ4人制カーリングと異なります。
 
 2. 通信先のホスト名・ポート番号の設定 (4人制カーリングと同様)
-**DCClient**内にある**set_server_address**関数を利用して、サーバのホスト名・ポート番号を設定してください。
-```Python
-client.set_server_address(host="localhost", port=5000)
-```
+    **DCClient**内にある**set_server_address**関数を利用して、サーバのホスト名・ポート番号を設定してください。
+    ```Python
+    client.set_server_address(host="localhost", port=5000)
+    ```
 3. チーム情報の送信 (4人制カーリングと同様)
-**send_team_info**関数を用いてチーム情報を、サーバへ送信します。
-この際に、最初のエンドにおける先攻後攻をサーバから受け取ります。
-(先攻 -> team0, 後攻 -> team1)
+    **send_team_info**関数を用いてチーム情報を、サーバへ送信します。
+    この際に、最初のエンドにおける先攻後攻をサーバから受け取ります。
+    (先攻 -> team0, 後攻 -> team1)
 
 4. 試合開始
-試合開始のタイミングで、サーバから**next_shot_team**にNoneが入った状態の盤面データが送られます。各エンドの最初は置き石を設定して頂きます。
-この際に、
+    試合開始のタイミングで、サーバから**next_shot_team**にNoneが入った状態の盤面データが送られます。各エンドの最初は置き石を設定して頂きます。
+    この際に、
     ```Python
     class PositionedStonesModel(str, enum.Enum):
         center_guard = "center_guard"
@@ -160,4 +160,4 @@ client.set_server_address(host="localhost", port=5000)
     なお、第三世代のデジタルカーリングの投球情報のままでも送信できるよう**send_shot_info_dc3**関数を用意してあります。
 
 5. 試合終了 (4人制カーリングと同様)
-盤面データ内にある**winner_team**にteam0 または team1 が入ったら試合終了です。
+    盤面データ内にある**winner_team**にteam0 または team1 が入ったら試合終了です。

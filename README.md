@@ -84,33 +84,33 @@ I think you can check the connection with these command.
 The protocol for four-player curling is ![here](./figure/protocol.png).
 
 1. Instantiate the client  
-```Python
-client = DCClient(match_id=match_id, username=username, password=password, match_team_name=MatchNameModel.team0)
-```
-match_id is received from the server when a match is created.
-username and password are required to identify the client. In production each participant should set their own username and password. For now you can use the preconfigured values in the project [.env](./.env).
+    ```Python
+    client = DCClient(match_id=match_id, username=username, password=password, match_team_name=MatchNameModel.team0)
+    ```
+    match_id is received from the server when a match is created.
+    username and password are required to identify the client. In production each participant should set their own username and password. For now you can use the preconfigured values in the project [.env](./.env).
 
-First, send your team information to the server. See [team_config.json](./team_config.json) for an example.
+    First, send your team information to the server. See [team_config.json](./team_config.json) for an example.
 
 2. Set server host and port
-Use the set_server_address function inside DCClient to set the server host and port:
-```Python
-client.set_server_address(host="localhost", port=5000)
-```
+    Use the set_server_address function inside DCClient to set the server host and port:
+    ```Python
+    client.set_server_address(host="localhost", port=5000)
+    ```
 
 3. Send team information
-Send your team information to the server using the **send_team_info** function.
-At this time, you will receive from the server which team plays first/second in the first end.
-(First -> team0, Second -> team1)
+    Send your team information to the server using the **send_team_info** function.
+    At this time, you will receive from the server which team plays first/second in the first end.
+    (First -> team0, Second -> team1)
 
 4. Start the match
-Receive state data from the server. If the next shot team matches your team name (team0 or team1), send a shot to the server using **send_shot_info**.
+    Receive state data from the server. If the next shot team matches your team name (team0 or team1), send a shot to the server using **send_shot_info**.
 
-You can also send shot data in the same format as Digital Curling 3rd generation using **send_shot_info_dc3**.
-Arguments:
-- vx
-- vy
-- rotation ("cw" or "ccw")
+    You can also send shot data in the same format as Digital Curling 3rd generation using **send_shot_info_dc3**.
+    Arguments:
+    - vx
+    - vy
+    - rotation ("cw" or "ccw")
 
 5. End of the match
 When **winner_team** in the state data becomes team0 or team1, the match is finished.
@@ -119,30 +119,30 @@ When **winner_team** in the state data becomes team0 or team1, the match is fini
 The protocol for miced doubles is as follows ![here](./figure/md_protocol.png).
 
 1. Instantiate the client
-```Python
-client = DCClient(match_id=match_id, username=username, password=password, match_team_name=MatchNameModel.team0)
-```
-match_id is received from the server when a match is created.
-username and password are required to identify the client. In production each participant should set their own username and password.
+    ```Python
+    client = DCClient(match_id=match_id, username=username, password=password, match_team_name=MatchNameModel.team0)
+    ```
+    match_id is received from the server when a match is created.
+    username and password are required to identify the client. In production each participant should set their own username and password.
 
-First, send your team information to the server.
-See [md_team_config.json](./md_team_config.json) for an example. (Only the team data differs from four-player curling.)
+    First, send your team information to the server.
+    See [md_team_config.json](./md_team_config.json) for an example. (Only the team data differs from four-player curling.)
 
 2. Set server host and port (same as four-player curling)
-Use the set_server_address function inside DCClient to set the server host and port:
-```Python
-client.set_server_address(host="localhost", port=5000)
-```
+    Use the set_server_address function inside DCClient to set the server host and port:
+    ```Python
+    client.set_server_address(host="localhost", port=5000)
+    ```
 
 3. Send team information (same as four-player curling)
-Send your team information to the server using **send_team_info**.
-At this time, you will receive from the server which team plays first/second in the first end.
-(First -> team0, Second -> team1)
+    Send your team information to the server using **send_team_info**.
+    At this time, you will receive from the server which team plays first/second in the first end.
+    (First -> team0, Second -> team1)
 
 4. Start the match
-At match start, the server sends a state where **next_shot_team** is None. At the beginning of each end, you must choose the positioned stones.
+    At match start, the server sends a state where **next_shot_team** is None. At the beginning of each end, you must choose the positioned stones.
 
-Use the following to choose the positioned stones pattern (and optional power play):
+    Use the following to choose the positioned stones pattern (and optional power play):
     ```Python
     class PositionedStonesModel(str, enum.Enum):
         center_guard = "center_guard"
@@ -150,8 +150,8 @@ Use the following to choose the positioned stones pattern (and optional power pl
         pp_left = "pp_left"
         pp_right = "pp_right"
     ```
-    Power play can be used only once per team per match. After the second attempt, **center_guard** is automatically selected.
 
+    Power play can be used only once per team per match. After the second attempt, **center_guard** is automatically selected.
     - PositionedStonesModel.center_guard -> Positioned stones at guard, take first throw
     - PositionedStonesModel.center_house -> Positioned stones in house, take second throw
     - PositionedStonesModel.pp_left -> Power play: positioned stones on the left, take second throw
