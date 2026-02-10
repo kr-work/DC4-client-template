@@ -1,6 +1,7 @@
-# New Client For Digital Curling
+# DigitalCurling4 Client Template
 
-This is a new client for digital curling.
+This is a client template compatible with DigitalCurling4.
+(For compatibility, DigitalCurling3 throw data can also be used)
 
 ## Language
 - [English(default)](https://github.com/kr-work/DC4-client-template/blob/main/README.md)

@@ -1,6 +1,7 @@
-# デジタルカーリング用新クライアント
+# DigitalCurling4クライアントテンプレート
 
-これはデジタルカーリング用の新しいクライアントです。
+これは、DigitalCurling4に対応したクライアントテンプレートとなっています。
+(互換性として、DigitalCurling3の投球データも使用可能です)
 
 ## 言語
 - [英語（デフォルト)](https://github.com/kr-work/DC4-client-template/blob/main/README.md)
