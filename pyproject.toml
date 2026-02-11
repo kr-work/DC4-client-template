@@ -3,7 +3,7 @@ name = "dc4_client"
 version = "1.0.0"
 description = "Digital Curling4 Client Template"
 readme = "README.md"
-requires-python = ">=3.19"
+requires-python = ">=3.9"
 dependencies = [
     "dc4client"
 ]
